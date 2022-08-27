@@ -1,0 +1,20 @@
+div.wrapper {
+    text-align: center;
+}
+div.container_menu {
+    display: inline-block;
+    margin-right: -0.25em;
+}
+table{
+    background-color: darkblue;
+}
+th{
+    background-color: aquamarine;
+}
+td{
+    background-color: white;
+}
+.table{
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}

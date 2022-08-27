@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All customers</title>
+    <link rel="stylesheet" href="/style_index.css">
+</head>
+<body>
+<table class="customers_table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Delete</th>
+        <th>Edit</th>
+        <th>Add order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${customers}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.customerName}"></td>
+        <td th:text="${c.customerCompany}"></td>
+        <td><a th:href="@{/work_with_customer/delete_customer/{id}(id=${c.id})}">delete</a></td>
+        <td><a th:href="@{/work_with_customer/edit_customer/{id}(id=${c.id})}">edit</a></td>
+        <td><a th:href="@{/work_with_orders/add_order/{id}(id=${c.id})}">Show orders</a></td>
+    </tr>
+    </tbody>
+</table>
+    <a href="/main_menu">To main menu</a>
+</body>
+</html>

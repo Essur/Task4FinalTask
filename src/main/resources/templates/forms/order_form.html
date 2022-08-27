@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating order</title>
+    <link rel="stylesheet" href="/style_index.css">
+</head>
+<body>
+    <h1>Creating order</h1>
+<form th:action="'/work_with_layouts/create_layouts/'" method="post">
+    <label for="layoutName">Enter the layout name:</label>
+    <input required type="text" id="layoutName" name="layoutName">
+        <br>
+    <label for="pricePerPiece">Enter price per piece:</label>
+    <input required type="text" id="pricePerPiece" name="pricePerPiece">
+        <br>
+    <label for="countOfMade">Enter count of made:</label>
+    <input required type="text" id="countOfMade" name="countOfMade">
+    <input type="hidden" th:value="${customerId}" name="customerId">
+        <br>
+    <input type="submit" value="Add">
+</form>
+    <form th:action="'/work_with_orders/save_layouts/'+ ${customerId}" method="get">
+        <label for="file_name">Enter file name:</label>
+        <input type="text" id="file_name" name="fileName">
+        <input type="submit" value="Save">
+    </form>
+    <br>
+    <table class="layouts_table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price per piece</th>
+            <th>Count of made</th>
+            <th>Total price for layout</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${layouts}">
+            <td th:text="${l.name}"></td>
+            <td th:text="${l.pricePerPiece}"></td>
+            <td th:text="${l.countOfMade}"></td>
+            <td th:text="${l.totalLayoutPrice}"></td>
+            <td><a th:href="@{/work_with_layouts/delete_layout/{name}(name=${l.name})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <h1 th:text="'Total price of order: ' + ${totalCost}"></h1>
+    <br>
+    <a href="/work_with_layouts/delete_layouts">Clear list</a>
+    <br>
+    <a href="/main_menu/">To main menu</a>
+</body>
+</html>

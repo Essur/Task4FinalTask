@@ -1,0 +1,3 @@
+Name - Price per piece - Count of made - Total price for layout 
+sahjd - 4.0 - 56 - 224.0
+Total price of order: 224.0
