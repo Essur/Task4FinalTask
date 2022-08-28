@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="/style_index.css">
+</head>
+<body>
+<table class="customers_table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price per piece</th>
+        <th>Count of made</th>
+        <th>Total price for layout</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="l : ${layouts}">
+        <td th:text="${l.name}"></td>
+        <td th:text="${l.pricePerPiece}"></td>
+        <td th:text="${l.countOfMade}"></td>
+        <td th:text="${l.totalLayoutPrice}"></td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4" th:text="'Total price for order ' + ${totalCost}"></th>
+        </tr>
+    </tfoot>
+</table>
+<a href="/work_with_customer/show_all_customers_with_orders">Back</a>
+<br>
+<a href="/main_menu">To main menu</a>
+</body>
+</html>

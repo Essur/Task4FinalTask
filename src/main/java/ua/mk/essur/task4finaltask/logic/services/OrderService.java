@@ -3,6 +3,7 @@ package ua.mk.essur.task4finaltask.logic.services;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;
+import ua.mk.essur.task4finaltask.logic.converter.FileNameConverter;
 import ua.mk.essur.task4finaltask.logic.layouts.Layouts;
 import ua.mk.essur.task4finaltask.logic.saveAndLoad.SaveAndLoad;
 
@@ -29,9 +30,6 @@ public class OrderService {
            instance = new OrderService();
         } return instance;
     }
-    public void saveLayouts(){
-        saveAndLoad.setLayouts(this.layouts);
-    }
 
     public void addLayout(String name, double pricePerPiece, int countOfMade){
         if(isValidValue(pricePerPiece, countOfMade)) {
@@ -43,24 +41,6 @@ public class OrderService {
 
     public void removeLayout(String name){
         layouts.remove(name);
-    }
-
-    public void editLayout(int id, String name, double pricePerPiece, int countOfMade){
-        if(isValidValue(pricePerPiece, countOfMade)) {
-            layouts.edit(id, name, pricePerPiece, countOfMade);
-        } else {
-            throw new RuntimeException("Invalid values!");
-        }
-    }
-
-    public String deleteFile(String name, String fileName){
-        try {
-            Files.delete(Path.of("resources/orders/" + name + '/' + fileName + ".dat"));
-            Files.delete(Path.of("resources/orders/" + name + '/' + fileName + ".txt"));
-            return "Successful deleted!";
-        } catch (IOException e) {
-            return "Error!";
-        }
     }
 
     private boolean isValidValue(double pricePerPiece, int countOfMade){
@@ -80,9 +60,9 @@ public class OrderService {
         }
     }
 
-    public Layouts loadOrder(String fileName){
-        String file = fileName.replace(".txt",".dat");
-        saveAndLoad.readOrder(file);
+    public Layouts loadOrder(String dirName,String fileName){
+        String file = FileNameConverter.fromTxtToDat(fileName);
+        saveAndLoad.readOrder(dirName,file);
         layouts.addAll(saveAndLoad.getLayouts().getLayoutList());
         return layouts;
     }

@@ -52,6 +52,18 @@ public class DBControllerCustomers {
         }
     }
 
+    @GetMapping("/show_all_customers_with_orders")
+    public String showAllCustomersWithOrders(Model model){
+        List<Customer> customers = customerRepository.findAll();
+        if(!customers.isEmpty()){
+            model.addAttribute("customers",customers);
+            return "views/customers_with_orders";
+        } else {
+            model.addAttribute("message","No one customers to show");
+            return "messages/error";
+        }
+    }
+
     @GetMapping("/delete_customer/{id}")
     public String deleteCustomer(@PathVariable("id") int id){
         customerRepository.deleteById(id);

@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ua.mk.essur.task4finaltask.logic.services.OrderService;
+import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 
 @Controller
 @AllArgsConstructor
@@ -14,11 +16,13 @@ public class NavigationController {
 
     @GetMapping("/add_customer_form")
     public String addCustomerForm(){
+        OrderService.getInstance().clearList();
         return "forms/customer_form";
     }
 
     @GetMapping("")
     public String mainMenu(){
+        OrderService.getInstance().clearList();
         return "index";
     }
 

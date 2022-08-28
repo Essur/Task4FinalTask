@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.mk.essur.task4finaltask.logic.services.OrderService;
+import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 
 import javax.security.auth.message.callback.PrivateKeyCallback;
 import java.net.URI;
@@ -31,7 +32,6 @@ public class ControllerLayouts {
                               @RequestParam("countOfMade") int countOfMade,
                               @RequestParam("customerId") int customerId,
                               Model model){
-
         OrderService.getInstance().addLayout(layoutName,pricePerPiece,countOfMade);
         model.addAttribute("layouts", OrderService.getInstance().getLayouts().getLayoutList());
         model.addAttribute("totalCost",OrderService.getInstance().getLayouts().getTotalCost());
@@ -46,9 +46,11 @@ public class ControllerLayouts {
     }
 
     @GetMapping("/delete_layout/{name}")
-    public String deleteLayout(@PathVariable("name") String name, Model model){
+    public String deleteLayout(@PathVariable("name") String name,@RequestParam("customerId") int customerId, Model model){
         OrderService.getInstance().removeLayout(name);
         model.addAttribute("layouts", OrderService.getInstance().getLayouts().getLayoutList());
+        model.addAttribute("totalCost", OrderService.getInstance().getLayouts().getTotalCost());
+        model.addAttribute("customerId",customerId);
         return "forms/order_form";
     }
 

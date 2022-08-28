@@ -45,8 +45,8 @@ public class SaveAndLoad {
         }
     }
 
-    public void readOrder(String fileName){
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/orders/" + fileName))) {
+    public void readOrder(String dirName, String fileName){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/orders/" + dirName + '/' + fileName))) {
             layouts = (Layouts) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);

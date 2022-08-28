@@ -58,8 +58,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id =" + id +
+        return "{ id =" + id +
                 ", file name ='" + fileOrderReport + '\'' +
                 ", creating date=" + orderReportCreatingDate.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) +
                 '}' + "\n";

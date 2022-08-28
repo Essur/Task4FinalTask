@@ -17,10 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -29,7 +26,7 @@ public class DBControllerOrders {
     CustomerRepository customerRepository;
     OrderRepository orderRepository;
 
-    @GetMapping("/add_order/{id}")
+    @GetMapping("/show_orders/{id}")
     public String addOrder(@PathVariable("id") int id, Model model){
         Customer customer = customerRepository.findById(id).get();
         model.addAttribute("customer",customer);
@@ -40,6 +37,36 @@ public class DBControllerOrders {
     @GetMapping("/save_layouts/{customerId}")
     public String saveOrder(@PathVariable("customerId") int id, @RequestParam("fileName") String fileName, Model model) {
         return saveOrderToFileAndDB(id, fileName, model);
+    }
+
+    @PostMapping("/load_order")
+    public String loadOrder(@RequestParam("orderId") int orderId, Model model){
+        Optional<Order> order = orderRepository.findById(orderId);
+        if(order.isPresent()) {
+            String fileOrderReport = order.get().getFileOrderReport();
+            String customerName = searchOrder(orderId);
+            Layouts layouts = OrderService.getInstance().loadOrder(customerName,fileOrderReport);
+            model.addAttribute("layouts",layouts.getLayoutList());
+            model.addAttribute("totalCost",layouts.getTotalCost());
+            return "views/order";
+        } else {
+            model.addAttribute("message", "Incorrect id, such order does not exist");
+            return "messages/error";
+        }
+
+    }
+
+    private String searchOrder(int orderId) {
+        List<Customer> all = customerRepository.findAll();
+        for (Customer customer : all) {
+            Collection<Order> orders = customer.getOrders();
+            for (Order order1 : orders) {
+                if (order1.getId() == orderId) {
+                    return customer.getCustomerName();
+                }
+            }
+        }
+        return null;
     }
 
     private String saveOrderToFileAndDB(int id, String fileName, Model model) {
@@ -63,16 +90,21 @@ public class DBControllerOrders {
     @PostMapping("/delete_order")
     public String deleteOrder(@RequestParam("orderId") int orderId, @RequestParam("customerId") int customerId, Model model){
         Collection<Order> orders = customerRepository.findById(customerId).get().getOrders();
-        String fileName = customerRepository.findById(customerId).get().getCustomerName() + '/' +
-                orderRepository.findById(orderId).get().getFileOrderReport();
         boolean result = orders.removeIf(order -> order.getId() == orderId);
         if(result) {
+            String fileName = customerRepository.findById(customerId).get().getCustomerName() + '/' +
+                    orderRepository.findById(orderId).get().getFileOrderReport();
             Customer customer = customerRepository.findById(customerId).get();
             customer.setOrdersList(orders);
             customerRepository.save(customer);
             orderRepository.deleteById(orderId);
-            OrderService.getInstance().removeFile(fileName);
-                return "redirect:/work_with_orders/add_order/" + customerId;
+            boolean deleteResult = OrderService.getInstance().removeFile(fileName);
+            if (deleteResult) {
+                return "redirect:/work_with_orders/show_orders/" + customerId;
+            } else {
+                model.addAttribute("message","Error in deleting file");
+                return "messages/error";
+            }
         } else {
             model.addAttribute("message", "Order does not exist!");
             return "/messages/error";
@@ -81,9 +113,9 @@ public class DBControllerOrders {
 
     @PostMapping("/edit_order")
     public String editOrderForm(@RequestParam("orderId") int orderId, @RequestParam("customerId") int customerId, Model model){
-        String fileName = customerRepository.findById(customerId).get().getCustomerName() + '/'
-                + orderRepository.findById(orderId).get().getFileOrderReport();
-        Layouts layouts = OrderService.getInstance().loadOrder(fileName);
+        String customerName = customerRepository.findById(customerId).get().getCustomerName();
+        String fileName = orderRepository.findById(orderId).get().getFileOrderReport();
+        Layouts layouts = OrderService.getInstance().loadOrder(customerName,fileName);
         model.addAllAttributes(createResponseAttributes(orderId, customerId, fileName, layouts));
         return "edits/edit_order";
     }

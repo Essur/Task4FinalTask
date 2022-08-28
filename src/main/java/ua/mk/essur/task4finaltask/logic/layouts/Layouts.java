@@ -21,7 +21,7 @@ public class Layouts implements Serializable {
     public void add(String name, double pricePerPiece, int countOfMade){
         Layout layout = new Layout(name, pricePerPiece, countOfMade);
         layoutList.add(layout);
-        totalCost += layout.getTotalLayoutPrice();
+        countTotalCost();
     }
     public void addAll(List<Layout> layoutList){
         this.layoutList.addAll(layoutList);
@@ -43,5 +43,6 @@ public class Layouts implements Serializable {
 
     public void clear() {
         layoutList.clear();
+        totalCost = 0;
     }
 }

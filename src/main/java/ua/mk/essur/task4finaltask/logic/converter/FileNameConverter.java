@@ -15,4 +15,7 @@ public interface FileNameConverter {
     public static String makeFullName(String fileName){
         return fileName + '_' + LocalDate.now() + ".txt";
     }
+    public static String fromTxtToDat(String fileName){
+        return fileName.replace(".txt",".dat");
+    }
 }
