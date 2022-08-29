@@ -25,5 +25,8 @@ public class NavigationController {
         OrderService.getInstance().clearList();
         return "index";
     }
-
+    @GetMapping("/about_web_app")
+    public String aboutIt(){
+        return "info/about_web_app";
+    }
 }

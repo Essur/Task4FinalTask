@@ -1,10 +1,10 @@
-create schema workbase;
-CREATE TABLE `workbase`.`customer` (
+create schema work_base;
+CREATE TABLE `work_base`.`customer` (
   `customer_id` INT NOT NULL AUTO_INCREMENT,
   `customer_name` VARCHAR(100) NULL,
   `customer_company` VARCHAR(100) NULL,
   PRIMARY KEY (`customer_id`));
-  CREATE TABLE `workbase`.`orders` (
+  CREATE TABLE `work_base`.`orders` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `file_order_report` VARCHAR(100) NULL,
   `order_report_creating_date` DATETIME NULL,

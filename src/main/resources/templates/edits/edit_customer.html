@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit customer</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<form action="#" th:action="@{/work_with_customer/update_customer/{id}(id=${customer.id})}" th:object="${customer}" method="post">
+<div class="wrapper">
+    <h1 th:text="'Editing customer ' + ${customer.customerName} + ' from ' + ${customer.customerCompany}"></h1>
+<form th:action="@{/work_with_customer/update_customer/{id}(id=${customer.id})}" th:object="${customer}" method="post" class="enter_form">
         <label for="customerName">Customer: </label>
         <input type="text" th:field="*{customerName}" id="customerName">
     <br>
@@ -13,5 +19,6 @@
         <input type="text" th:field="*{customerCompany}" id="customerCompany">
     <input type="submit" value="Apply">
 </form>
+</div>
 </body>
 </html>

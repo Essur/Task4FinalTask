@@ -48,6 +48,8 @@ public class DBControllerOrders {
             Layouts layouts = OrderService.getInstance().loadOrder(customerName,fileOrderReport);
             model.addAttribute("layouts",layouts.getLayoutList());
             model.addAttribute("totalCost",layouts.getTotalCost());
+            model.addAttribute("customerName", customerName);
+            model.addAttribute("orderId",orderId);
             return "views/order";
         } else {
             model.addAttribute("message", "Incorrect id, such order does not exist");

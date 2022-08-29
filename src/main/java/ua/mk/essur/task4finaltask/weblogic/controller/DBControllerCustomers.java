@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.mk.essur.task4finaltask.weblogic.entities.Customer;
+import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 import ua.mk.essur.task4finaltask.weblogic.repositories.CustomerRepository;
+import ua.mk.essur.task4finaltask.weblogic.repositories.OrderRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RequestMapping({"/main_menu/work_with_customer", "/work_with_customer"})
 public class DBControllerCustomers {
     CustomerRepository customerRepository;
+    OrderRepository orderRepository;
 
     @PostMapping("/add_customer")
     public String addCustomer(@RequestParam("customerName") String name,@RequestParam ("customerCompany") String company, Model model){
@@ -55,11 +58,12 @@ public class DBControllerCustomers {
     @GetMapping("/show_all_customers_with_orders")
     public String showAllCustomersWithOrders(Model model){
         List<Customer> customers = customerRepository.findAll();
+        customers.removeIf(customer -> customer.getOrders().isEmpty());
         if(!customers.isEmpty()){
             model.addAttribute("customers",customers);
             return "views/customers_with_orders";
         } else {
-            model.addAttribute("message","No one customers to show");
+            model.addAttribute("message","No one object to show");
             return "messages/error";
         }
     }

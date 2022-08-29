@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit order</title>
-    <link rel="stylesheet" href="/style_index.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="wrapper">
 <h1 th:text="'Editing order ' + ${orderId}"></h1>
-<form th:action="'/work_with_layouts/create_layouts/edit'" method="post">
+<form th:action="'/work_with_layouts/create_layouts/edit'" method="post" class="enter_form">
     <label for="layoutName">Enter the layout name:</label>
     <input required type="text" id="layoutName" name="layoutName">
         <br>
@@ -22,7 +26,7 @@
         <br>
     <input type="submit" value="Add">
 </form>
-<form th:action="'/work_with_orders/update_order/'" method="post">
+<form th:action="'/work_with_orders/update_order/'" method="post" class="enter_form">
     <label for="file_name">File name:</label>
     <input type="text" id="file_name" name="fileName" th:value="${fileName}" readonly>
     <input type="hidden" th:value="${customerId}" name="customerId">
@@ -46,14 +50,15 @@
         <td th:text="${l.pricePerPiece}"></td>
         <td th:text="${l.countOfMade}"></td>
         <td th:text="${l.totalLayoutPrice}"></td>
-        <td><a th:href="@{/work_with_layouts/edit/delete_layout/{name}(name=${l.name},fileName=${fileName},customerId=${customerId},orderId=${orderId})}">delete</a></td>
+        <td><a th:href="@{/work_with_layouts/edit/delete_layout/{name}(name=${l.name},fileName=${fileName},customerId=${customerId},orderId=${orderId})}" class="button_table">delete</a></td>
     </tr>
     </tbody>
 </table>
     <h1 th:text="'Total price of order: ' + ${totalCost}"></h1>
         <br>
-    <a href="/work_with_layouts/delete_layouts">Clear list</a>
+    <a href="/work_with_layouts/delete_layouts" class="nav_button">Clear list</a>
         <br>
-    <a href="/main_menu/">To main menu</a>
+    <a href="/main_menu/" class="nav_button">To main menu</a>
+</div>
 </body>
 </html>

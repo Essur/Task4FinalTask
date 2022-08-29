@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Successfully</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="wrapper">
     <h1 th:text="'Successfully ' + ${message} + '!'"></h1>
-    <a href="/work_with_customer/show_all_customers">Show all customers</a>
+    <a href="/work_with_customer/show_all_customers" class="nav_button">Show all customers</a>
     <br>
-    <a href="/main_menu">To main menu</a>
+    <a href="/main_menu" class="nav_button">To main menu</a>
+</div>
 </body>
 </html>

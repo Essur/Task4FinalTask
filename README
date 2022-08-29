@@ -1,0 +1,4 @@
+Для работы проекта ничего не нужно настраивать, база данных создается автоматически используя настройку ?createDatabaseIfNotExist=true
+в фалйе src/main/resources/application.properties
+Но!
+Если база данных сама не создастся автоматически, в папке src/main/resources/META-INF есть sqlScrip.txt в нем есть запрос который создает базу данных

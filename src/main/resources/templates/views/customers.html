@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>All customers</title>
-    <link rel="stylesheet" href="/style_index.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Customers</h1>
+<div class="wrapper">
+    <h1>Customers</h1>
 <table class="customers_table">
     <thead>
     <tr>
         <th>#</th>
         <th>Name</th>
         <th>Company</th>
-        <th>Delete</th>
-        <th>Edit</th>
+        <th>Delete customer</th>
+        <th>Edit customer</th>
         <th>Add order</th>
     </tr>
     </thead>
@@ -23,12 +27,13 @@
         <td th:text="${c.id}"></td>
         <td th:text="${c.customerName}"></td>
         <td th:text="${c.customerCompany}"></td>
-        <td><a th:href="@{/work_with_customer/delete_customer/{id}(id=${c.id})}">delete</a></td>
-        <td><a th:href="@{/work_with_customer/edit_customer/{id}(id=${c.id})}">edit</a></td>
-        <td><a th:href="@{/work_with_orders/show_orders/{id}(id=${c.id})}">Show orders</a></td>
+        <td><a th:href="@{/work_with_customer/delete_customer/{id}(id=${c.id})}" class="button_table">Delete</a></td>
+        <td><a th:href="@{/work_with_customer/edit_customer/{id}(id=${c.id})}" class="button_table">Edit</a></td>
+        <td><a th:href="@{/work_with_orders/show_orders/{id}(id=${c.id})}" class="button_table">Show orders</a></td>
     </tr>
     </tbody>
 </table>
-    <a href="/main_menu">To main menu</a>
+    <a href="/main_menu" class="nav_button">To main menu</a>
+</div>
 </body>
 </html>

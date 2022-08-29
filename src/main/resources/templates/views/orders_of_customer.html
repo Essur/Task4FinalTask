@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Orders of customer</title>
-    <link rel="stylesheet" href="/style_index.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="table">
+<div class="wrapper">
     <h1>Orders of customer</h1>
     <table class="orders_of_customer">
         <thead>
@@ -22,13 +25,13 @@
         </thead>
         <tbody>
         <tr th:each="c : ${customer}">
-            <td th:text="${customer.id}"></td>
-            <td th:text="${customer.customerName}"></td>
-            <td th:text="${customer.customerCompany}"></td>
-            <td th:text="${customer.orders}"></td>
-            <td><a th:href="@{/work_with_layouts/creating_form/{id}(id=${customer.id})}">Create order</a></td>
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.customerName}"></td>
+            <td th:text="${c.customerCompany}"></td>
+            <td style="white-space: pre-line" th:text="${c.orders}"></td>
+            <td><a th:href="@{/work_with_layouts/creating_form/{id}(id=${customer.id})}" class="button_table">Create order</a></td>
             <td>
-                <form th:action="'/work_with_orders/edit_order'" method="post">
+                <form th:action="'/work_with_orders/edit_order'" method="post" class="enter_form">
                     <label for="orderIdEdit"></label>
                     <input type="number" id="orderIdEdit" name="orderId">
                     <input type="hidden" th:value="${customerId}" name="customerId">
@@ -36,7 +39,7 @@
                 </form>
             </td>
             <td>
-                <form th:action="'/work_with_orders/delete_order'" method="post">
+                <form th:action="'/work_with_orders/delete_order'" method="post" class="enter_form">
                     <label for="orderId"></label>
                     <input type="number" id="orderId" name="orderId">
                     <input type="hidden" th:value="${customerId}" name="customerId">
@@ -46,9 +49,9 @@
         </tr>
         </tbody>
     </table>
-    <a href="/work_with_customer/show_all_customers">Back to customers</a>
+    <a href="/work_with_customer/show_all_customers" class="nav_button">Back to customers</a>
     <br>
-    <a href="/main_menu/">To main menu</a>
+    <a href="/main_menu/" class="nav_button">To main menu</a>
 </div>
 </body>
 </html>
