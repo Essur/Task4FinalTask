@@ -1,7 +1,5 @@
 package ua.mk.essur.task4finaltask.weblogic.entities;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;

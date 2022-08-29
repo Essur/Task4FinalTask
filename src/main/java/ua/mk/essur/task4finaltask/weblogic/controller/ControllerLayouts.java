@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.mk.essur.task4finaltask.logic.services.OrderService;
-import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 
-import javax.security.auth.message.callback.PrivateKeyCallback;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 

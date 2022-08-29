@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.mk.essur.task4finaltask.weblogic.entities.Customer;
-import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 import ua.mk.essur.task4finaltask.weblogic.repositories.CustomerRepository;
 import ua.mk.essur.task4finaltask.weblogic.repositories.OrderRepository;
 

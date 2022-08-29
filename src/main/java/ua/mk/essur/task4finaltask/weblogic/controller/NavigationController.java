@@ -2,12 +2,9 @@ package ua.mk.essur.task4finaltask.weblogic.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.mk.essur.task4finaltask.logic.services.OrderService;
-import ua.mk.essur.task4finaltask.weblogic.entities.Order;
 
 @Controller
 @AllArgsConstructor
